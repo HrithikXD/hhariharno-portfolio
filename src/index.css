@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+:root{
+  --primary-background:#111;
+  --secondary-background:#fafafa;
+  --con-background:white;
+  --primary-font-color:#111;
+  --secondary-font-color:#eee;
+  --third-font-color:#a4abac;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --shadow-hover: rgba(0, 0, 0, 0.15);
+  --overlay-bg: rgba(91, 138, 156, 0.2);
+  --card-hover-shadow: 0 8px 16px var(--shadow-hover);
+}
+[data-theme='dark']{
+  --primary-background:#545454;
+  --con-background:#292929;
+  --secondary-background:#404040;
+  --primary-font-color:#bababa;
+  --secondary-font-color:#eee;
+  --third-font-color:#8e8e8e;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --shadow-hover: rgba(0, 0, 0, 0.15);
+  --overlay-bg: rgba(91, 138, 156, 0.2);
+  --card-hover-shadow: 0 8px 16px var(--shadow-hover);
+}
+[data-theme='ocean-l']{
+  --primary-background: #FFFFFF;
+  --secondary-background: #ffffff7b;
+  --con-background: #c5e4f2;
+  --primary-font-color: #1A3A4A;
+  --secondary-font-color: #2C5D7C;
+  --third-font-color: #5B8A9C;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --shadow-hover: rgba(0, 0, 0, 0.15);
+  --overlay-bg: rgba(91, 138, 156, 0.2);
+  --card-hover-shadow: 0 8px 16px var(--shadow-hover);
+}
+[data-theme='ocean-d'] {
+  --primary-background: #1A3A4A;
+  --secondary-background: #1a3a4a67;
+  --con-background: #2C5D7C;
+  --primary-font-color: #E0EEF5;
+  --secondary-font-color: #F0F7FC;
+  --third-font-color: #56C1E8;
+  --shadow-color: rgba(0, 0, 0, 0.2);
+  --shadow-hover: rgba(0, 0, 0, 0.3);
+  --overlay-bg: rgba(86, 193, 232, 0.1);
+  --card-hover-shadow: 0 8px 16px var(--shadow-hover);
+}
+[data-theme='purple-l']{
+  --primary-background: #FFFFFF;
+  --secondary-background: #e7d7af; 
+  --con-background:  #F6F2E8; ;
+  --primary-font-color: #1A1A1A;
+  --secondary-font-color: #4A1E6D; 
+  --third-font-color: #7E4FB0;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --shadow-hover: rgba(0, 0, 0, 0.15);
+  --overlay-bg: rgba(126, 79, 176, 0.12);
+  --card-hover-shadow: 0 8px 16px var(--shadow-hover);
+}
+[data-theme='purple-d']{
+   --primary-background: #1E1E24;
+  --secondary-background: #33333b;
+  --con-background: #2D2D35;
+  --primary-font-color: #F4ECE0;
+  --secondary-font-color: #B995D9;
+  --third-font-color: #8665B0;
+  --shadow-color: rgba(0, 0, 0, 0.25);
+  --shadow-hover: rgba(0, 0, 0, 0.35);
+  --overlay-bg: rgba(185, 149, 217, 0.15);
+  --card-hover-shadow: 0 8px 16px var(--shadow-hover);
+}
+body{
+  background-color: var(--con-background);
+}
+*{
+  margin: 0;
+  padding: 0;
+  outline: none;
+  box-sizing:border-box;
+  font-family: "Ubuntu", sans-serif;
+}
+a{
+  text-decoration: none;
+  color: #111;
+  font-size: 14px;
+}
+p{
+  color: #a4abac;
+}

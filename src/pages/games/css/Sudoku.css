@@ -1,0 +1,109 @@
+.mainSudoBox {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* background-color: rebeccapurple; */
+}
+.sudoGameBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: var(--box-shadow);
+  /* background-color: var(--third-font-color); */
+  /* overflow: hidden; */
+}
+
+.sudoGameBox .row {
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 0.5px;
+}
+
+.row input[type="number"]::-webkit-inner-spin-button,
+.row input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.sudoGameBox .col {
+  margin: 0.5px;
+  width: 100%;
+  height: 100%;
+  background-color: var(--primary-background);
+  border-radius: 6px;
+  border: solid var(--primary-background) 0.5px;
+}
+.sudoGameBox .col-initial{
+  background-color: var(--third-font-color);
+}
+
+.sudoGameBox .col:hover {
+  background-color: var(--con-background);
+  transform: translateY(-1px);
+  transition: all 0.3s ease;
+}
+
+.sudoGameBox .row .col input {
+  color: var(--secondary-font-color);
+  font-size: clamp(1.5rem, 5vw, 3rem);
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  padding: 10px;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  transition: background-color 0.2s ease;
+}
+
+.sudoGameBox .row .col input:hover {
+  color: var(--primary-font-color);
+}
+
+.row:nth-child(3n) {
+  margin-bottom: 5px;
+}
+.row:first-child {
+  margin-top: 5px;
+}
+.row:last-child{
+  border-bottom:none;
+  margin-bottom: 5px;
+}
+.col:first-child {
+  margin-left: 5px;
+}
+.col:nth-child(3n) {
+  margin-right: 5px;
+}
+
+.row input:hover {
+  background-color: #f0f0f0;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 500px) {
+  .sudoGameBox {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1/1;
+  }
+
+  .row input[type="number"] {
+    height: 100%;
+    font-size: 16px;
+  }
+}
