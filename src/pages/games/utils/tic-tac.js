@@ -94,7 +94,6 @@ const isBoardFull = (square) =>{
 }
 
 export function hardMove(squares) {
-  console.log('Enter')
   let bestScore = -Infinity;
   let bestMove = -1;
   for (let i = 0; i < squares.length; i++) {
@@ -108,7 +107,6 @@ export function hardMove(squares) {
       }
     }
   }
-  console.log('Out',bestMove)
   return bestMove;
 }
 
