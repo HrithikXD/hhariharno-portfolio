@@ -16,10 +16,10 @@ const TicTacToe = () => {
   const [qubeCount, setQubeCount] = useState(9);
   const [difficulty, setDifficulty] = useState(0);
   const [st, setSt] = useState(true);
-  
 
   useEffect(() => {
-    if (!turn && qubeCount > 1 && overmsg == "draw") {
+    console.log(turn, qubeCount, overmsg);
+    if (!turn && qubeCount > 0 && overmsg == "draw") {
       const timer = setTimeout(() => {
         let aiMove;
         switch (difficulty) {
@@ -41,24 +41,28 @@ const TicTacToe = () => {
       }, 1000);
       // return clearTimeout(timer)
     }
-  }, [turn, difficulty, qubeCount, overmsg]);
+  }, [turn, difficulty, qubeCount, overmsg, st]);
 
   const qubeVal = (qubeId) => {
     const qubeNew = qube;
     qubeNew[qubeId] = turn;
     setQube(qubeNew);
+    setQubeCount((prev) => prev - 1);
     checkwin(qubeId);
     setTurn(!turn);
-    setQubeCount((prev) => prev - 1);
   };
 
   const checkwin = (i) => {
-    if (calculateWinner(qube, i) !== -1) {
+    const winner = calculateWinner(qube, i);
+    if (winner !== -1) {
       setQubeCount(0);
       const newScore = score;
       newScore[turn ? 0 : 1] += 100;
       setScore(newScore);
       setOverMsg((turn ? "you" : "I") + " won!!");
+    }
+    console.log(winner, qubeCount)
+    if (winner !== -1 || qubeCount <= 1) {
       setSt(!st);
     }
   };
