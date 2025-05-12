@@ -26,7 +26,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin: 0.5px;
+  margin: 0.4px;
 }
 
 .row input[type="number"]::-webkit-inner-spin-button,
@@ -90,11 +90,7 @@
   margin-right: 5px;
 }
 
-.row input:hover {
-  background-color: #f0f0f0;
-}
-
-/* Responsive design for smaller screens */
+/* Responsive */
 @media (max-width: 500px) {
   .sudoGameBox {
     width: 100%;
