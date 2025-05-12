@@ -8,6 +8,31 @@
   font-size: 1.9rem;
 }
 
+/* .th-i:hover{
+  color: var(--primary-background);
+} */
+
+.changeColor {
+  background-color: var(--primary-background);
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border: none;
+}
+
+.changeColor:hover {
+  background-color: var(--con-background);
+  transform: translateY(-1px);
+  transition: all 0.3s ease;
+}
+
+.changeColor:hover .th-i {
+  color: var(--primary-font-color);
+}
+
 .sidebar {
   position: fixed;
   left: 0;

@@ -1,27 +1,33 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from "react";
 
 const Themes = () => {
+  const theme = {
+    1: "",
+    2: "dark",
+    3: "ocean-l",
+    4: "ocean-d",
+    5: "purple-l",
+    6: "purple-d",
+  };
 
-    const theme = {1:"",2:"dark",3:"ocean-l",4:"ocean-d",5:'purple-l',6:'purple-d'}
+  const [curT, setCurT] = useState(1);
 
-    const [curT, setCurT] = useState(1)
+  useEffect(() => {
+    document.querySelector("body").setAttribute("data-theme", theme[curT]);
+  }, [curT]);
 
-    useEffect(()=>{
-        document.querySelector('body').setAttribute('data-theme', theme[curT])
-    },[curT])
-
-    const changeTheme = () => {
-
-        if (curT===Object.keys(theme).length){
-            setCurT(1)
-        }
-        else{
-            setCurT((prev)=>prev+1)
-        }
+  const changeTheme = () => {
+    if (curT === Object.keys(theme).length) {
+      setCurT(1);
+    } else {
+      setCurT((prev) => prev + 1);
     }
+  };
   return (
-    <i className='th-i bx bx-palette' onClick={changeTheme}></i>
-  )
-}
+    <button className="changeColor">
+      <i className="th-i bx bx-palette" onClick={changeTheme}></i>
+    </button>
+  );
+};
 
-export default Themes
+export default Themes;
