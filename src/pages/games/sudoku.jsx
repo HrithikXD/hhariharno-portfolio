@@ -88,7 +88,7 @@ const Sudoku = () => {
           </div>
           <div className="myScore">
             <i className="bx bx-right-arrow-alt" onClick={nextBoard}></i>
-            <p>new board</p>
+            <p>next</p>
           </div>
         </div>
         <div className="difficulty">

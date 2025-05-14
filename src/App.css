@@ -555,9 +555,14 @@
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
+  .gameOption{
+    /* margin-bottom: 20px; */
+  }
+
   .container {
     margin-left: 0;
+    /* margin-bottom:5000px; */
   }
   
   .logo {
@@ -574,7 +579,7 @@
     left: 0;
     right: 0;
     width: 100%;
-    height: 80px;
+    /* height: 80px; */
     flex-direction: row;
     align-items: center;
   }

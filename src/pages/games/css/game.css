@@ -11,8 +11,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background-color: rebeccapurple; */
-  height: 88vh;
   width: 100%;
 }
 .gameOption {
@@ -27,7 +25,6 @@
   transition: all 0.3s ease;
   width: 30%;
   height: 10%;
-  /* background-color: rebeccapurple; */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -130,3 +127,8 @@
 .w {
   color: var(--primary-white);
 }
+
+@media (max-width: 768px) {
+  .gameOption{
+    margin-bottom: 20px;
+  }}
