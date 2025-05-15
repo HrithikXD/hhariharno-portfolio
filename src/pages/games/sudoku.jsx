@@ -83,7 +83,7 @@ const Sudoku = () => {
       <div className="gameOption">
         <div className="score">
           <div className="yourScore sb">
-            <h1>{score}</h1>
+            <p>{score}</p>
             <p>score</p>
           </div>
           <div className="myScore">

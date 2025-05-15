@@ -118,7 +118,7 @@
   flex: 1;
   margin-left: 210px;
   padding: 20px;
-  z-index: 1;
+  /* z-index: 1; */
   transition: all 0.3s ease;
 }
 
@@ -562,6 +562,7 @@
 
   .container {
     margin-left: 0;
+
     /* margin-bottom:5000px; */
   }
   
@@ -632,4 +633,21 @@
   .conversation {
     width: 100%;
   }
+  .tech-container{
+    margin-bottom: 80px;
+  }
+  .other-container{
+    margin-bottom: 80px;
+  }
+  .project-container{
+    margin-bottom: 80px;
+  }
+  .me{
+    justify-content:flex-end;
+  }
+  .me-left{
+    height: 80vh;
+    /* width: ; */
+  }
+  .me-right{display: none;height: 0;width: 0;}
 }

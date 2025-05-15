@@ -76,11 +76,11 @@ const TicTacToe = () => {
       <div className="gameOption">
         <div className="score">
           <div className={!turn ? "yourScore" : "yourScore sb"}>
-            <h1>{score[0]}</h1>
+            <p>{score[0]}</p>
             <p>you</p>
           </div>
           <div className={turn ? "myScore" : "myScore sb"}>
-            <h1>{score[1]}</h1>
+            <p>{score[1]}</p>
             <p>Me</p>
           </div>
         </div>
