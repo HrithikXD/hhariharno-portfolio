@@ -1,0 +1,49 @@
+.mainChessBox {
+  width: 80%;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  /* background-color: rebeccapurple; */
+}
+.chessGameBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  box-shadow: var(--box-shadow);
+  transition: all 0.3s ease;
+  padding: 10px;
+  transition: all 0.3s ease;
+}
+.chessRow {
+  /* height: 100px; */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+.chessCol {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid 1px;
+  height: clamp(1.5rem, 3vw, 3rem);
+  width: clamp(1.5rem, 3vw, 3rem);
+  font-size: clamp(1.5rem, 3vw, 3rem);
+  text-align: center;
+  padding: 30px;
+  /* transition: all 0.3s ease; */
+}
+.piece-active{
+    font-weight: bold;
+    /* background-color: var(--third-font-color); */
+    /* transition: all 0.2s ease; */
+}

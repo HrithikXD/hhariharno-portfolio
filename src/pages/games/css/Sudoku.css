@@ -120,8 +120,5 @@
   .sudoGameBox .row{
     height: 40px;
   }
-  .sudoGameBox .row .col{
-    /* width: 30px; */
-  }
 
 }
