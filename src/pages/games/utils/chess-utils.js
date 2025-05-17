@@ -112,7 +112,6 @@ const checkKnight = (row, col, player, positions) => {
   for (const [r, c] of direction) {
     const i = row + r;
     const j = col + c;
-    console.log(i, j);
     const posStr = `${i},${j}`;
     if (i < 0 || j < 0 || i > 7 || j > 7) continue;
     if (!positions[player].has(posStr)) {
@@ -366,7 +365,6 @@ const checkKing = (row, col, player, positions) => {
   for (const [r, c] of direction) {
     const i = row + r;
     const j = col + c;
-    console.log(i, j);
     const posStr = `${i},${j}`;
     if (i < 0 || j < 0 || i > 7 || j > 7) continue;
     if (!positions[player].has(posStr)) {
@@ -408,4 +406,31 @@ export const onClick = (moveTo, positions) => {
       break;
   }
   return move;
+};
+
+export const genLeagalMoves = (positions) => {
+  let move = new Map();
+  for (const key of positions.false) {
+    const [row, col] = key[0].split(",").map(Number);
+    const moveTo = [
+      [key[1], false],
+      [row, col],
+    ];
+    const result = onClick(moveTo, positions);
+    for (const [k, v] of result) {
+      if (!move.has(key[0])) {
+        move.set(key[0], new Map());
+      }
+      move.get(key[0]).set(k, v);
+    }
+  }
+  const fromPositions = [...move.keys()];
+  const randomFrom =
+    fromPositions[Math.floor(Math.random() * fromPositions.length)];
+
+  const destinations = [...move.get(randomFrom).keys()];
+  const randomTo =
+    destinations[Math.floor(Math.random() * destinations.length)];
+
+  return { from: randomFrom, to: randomTo };
 };

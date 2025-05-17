@@ -3,6 +3,7 @@ import {
   initialChessBoard,
   copyInitialPositions,
   onClick,
+  genLeagalMoves,
 } from "./utils/chess-utils";
 import "./css/Chess.css";
 const Chess = () => {
@@ -25,6 +26,8 @@ const Chess = () => {
   const [canMoveTo, setCanMoveTo] = useState(null);
   const [check, setCheck] = useState([false, ""]);
   const [isOver, setIsOver] = useState(false);
+  const [cpuFrom, setCpuFrom] = useState(null);
+  const [cpuTo, setCpuTo] = useState(null);
 
   useEffect(() => {
     if (pick) {
@@ -44,11 +47,36 @@ const Chess = () => {
         }
       }
     }
+    if (!turn && cpuTo && cpuFrom) {
+      setTimeout(() => {
+        select(cpuTo[0], cpuTo[1]);
+        setCpuTo(null);
+        setCpuFrom(null);
+      }, 1000);
+    }
   }, [canMoveTo]);
 
   useEffect(() => {}, [check]);
 
   useEffect(() => {}, [score, isOver]);
+
+  useEffect(() => {
+    if (!turn) {
+      const cpuMoves = genLeagalMoves(positions);
+      if (cpuMoves && cpuMoves.from && cpuMoves.to) {
+        const [r1, c1] = cpuMoves.from.split(",").map(Number);
+        const [r2, c2] = cpuMoves.to.split(",").map(Number);
+        setCpuFrom([r1, c1]);
+        setCpuTo([r2, c2]);
+      }
+    }
+  }, [turn]);
+
+  useEffect(() => {
+    if (!turn && cpuFrom) {
+      select(cpuFrom[0], cpuFrom[1]);
+    }
+  }, [cpuFrom]);
 
   const isPiece = (r, c) => {
     const index = `${r},${c}`;
@@ -71,7 +99,7 @@ const Chess = () => {
       const index = `${moveAble[1][0]},${moveAble[1][1]}`;
       positions[moveAble[0][1]].delete(index);
       if (positions[!moveAble[0][1]].has(cur)) {
-        if (check[0] && positions[!moveAble[0][1]].get(cur)[0] === "king") {
+        if (positions[!moveAble[0][1]].get(cur)[0] === "king") {
           const newScore = score;
           newScore[turn ? 0 : 1] += 100;
           setScore(newScore);
@@ -157,7 +185,7 @@ const Chess = () => {
                     `${rIndex},${cIndex}`
                     ? "chessCol piece-active "
                     : "chessCol "
-                }${(rIndex+cIndex)%2!==0 ?"chessCol-bg":""}`}
+                }${(rIndex + cIndex) % 2 !== 0 ? "chessCol-bg" : ""}`}
                 key={cIndex}
                 onClick={() => select(rIndex, cIndex)}
               >
