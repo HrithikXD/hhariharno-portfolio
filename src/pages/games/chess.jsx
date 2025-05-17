@@ -61,7 +61,7 @@ const Chess = () => {
   useEffect(() => {}, [score, isOver]);
 
   useEffect(() => {
-    if (!turn) {
+    if (!turn && !isOver) {
       const cpuMoves = genLeagalMoves(positions);
       if (cpuMoves && cpuMoves.from && cpuMoves.to) {
         const [r1, c1] = cpuMoves.from.split(",").map(Number);
