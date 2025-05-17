@@ -43,6 +43,9 @@
   color: var(--primary-font-color);
   transition: all 0.3s ease;
 }
+.chessCol-bg {
+  background-color: var(--overlay-bg);
+}
 .chess-check {
   border: solid 3px red;
   transition: all 0.3s ease;
@@ -51,7 +54,14 @@
 .piece {
   position: relative;
   transition: all 0.3s ease;
-  /* z-index: 1; */
+}
+.piece:hover {
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
+}
+
+.chessCol:hover{
+  background-color: var(--shadow-hover);
 }
 
 .piece-active {

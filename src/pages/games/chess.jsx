@@ -150,14 +150,14 @@ const Chess = () => {
           <div className="chessRow" key={rIndex}>
             {row.map((col, cIndex) => (
               <div
-                className={
+                className={`${
                   pick &&
                   moveAble[1] &&
                   `${moveAble[1][0]},${moveAble[1][1]}` ===
                     `${rIndex},${cIndex}`
-                    ? "chessCol piece-active"
-                    : "chessCol"
-                }
+                    ? "chessCol piece-active "
+                    : "chessCol "
+                }${(rIndex+cIndex)%2!==0 ?"chessCol-bg":""}`}
                 key={cIndex}
                 onClick={() => select(rIndex, cIndex)}
               >
