@@ -24,7 +24,7 @@
 .score {
   transition: all 0.3s ease;
   width: 30%;
-  height: 10%;
+  /* height: 10%; */
   display: flex;
   justify-content: space-between;
   align-items: center;

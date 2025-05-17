@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import {
   initialChessBoard,
-  initialPositions,
+  copyInitialPositions,
   onClick,
 } from "./utils/chess-utils";
 import "./css/Chess.css";
-import Draggable from "react-draggable";
-
 const Chess = () => {
   const [board, setBoard] = useState(initialChessBoard);
   const pieces = {
@@ -18,15 +16,39 @@ const Chess = () => {
     rook: ["♖", "♜"],
     "": ["", ""],
   };
-  const [positions, setPositions] = useState(initialPositions);
+  const [positions, setPositions] = useState(copyInitialPositions);
   const [moveAble, setMoveAble] = useState("");
-  const [pick, setPick] = useState([false, ""]);
+  const [pick, setPick] = useState(false);
+  const [score, setScore] = useState([0, 0]);
+  const [turn, setTurn] = useState(true);
+  const [difficulty, setDifficulty] = useState(0);
+  const [canMoveTo, setCanMoveTo] = useState(null);
+  const [check, setCheck] = useState([false, ""]);
+  const [isOver, setIsOver] = useState(false);
 
   useEffect(() => {
+    if (pick) {
+      const move = onClick(moveAble, positions);
+      setCanMoveTo(move);
+    }
   }, [pick, moveAble]);
 
+  useEffect(() => {}, [positions]);
+
   useEffect(() => {
-  }, [positions]);
+    if (canMoveTo) {
+      for (const key of canMoveTo) {
+        if (key[1] == "king") {
+          setCheck([true, key[0]]);
+          break;
+        }
+      }
+    }
+  }, [canMoveTo]);
+
+  useEffect(() => {}, [check]);
+
+  useEffect(() => {}, [score, isOver]);
 
   const isPiece = (r, c) => {
     const index = `${r},${c}`;
@@ -44,16 +66,29 @@ const Chess = () => {
 
   const select = (r, c) => {
     const pos = isPiece(r, c);
-    if (pos[1] !== null) {
-      setPick(true);
-      setMoveAble([pos, [r, c]]);
+    const cur = `${r},${c}`;
+    if (pick && canMoveTo && canMoveTo.has(cur)) {
+      const index = `${moveAble[1][0]},${moveAble[1][1]}`;
+      positions[moveAble[0][1]].delete(index);
+      if (positions[!moveAble[0][1]].has(cur)) {
+        if (check[0] && positions[!moveAble[0][1]].get(cur)[0] === "king") {
+          const newScore = score;
+          newScore[turn ? 0 : 1] += 100;
+          setScore(newScore);
+          setIsOver(true);
+        }
+        positions[!moveAble[0][1]].delete(cur);
+      }
+      setCheck([false, ""]);
+      positions[moveAble[0][1]].set(cur, moveAble[0][0]);
+      setPick(false);
+      setCanMoveTo(null);
+      setMoveAble("");
+      setTurn(!turn);
     } else {
-      if (pick) {
-        const index = `${moveAble[1][0]},${moveAble[1][1]}`;
-        positions[moveAble[0][1]].delete(index);
-        positions[moveAble[0][1]].set(`${r},${c}`, moveAble[0][0]);
-        setPick(false);
-        setMoveAble("");
+      if (positions[turn].has(cur)) {
+        setPick(true);
+        setMoveAble([pos, [r, c]]);
       }
     }
   };
@@ -63,8 +98,53 @@ const Chess = () => {
     return pieces[pos[0][0]][pos[1] ? 0 : 1];
   };
 
+  const reset = () => {
+    setPositions(copyInitialPositions);
+    setMoveAble("");
+    setPick(false);
+    setCanMoveTo(null);
+    setMoveAble("");
+    setIsOver(false);
+  };
+
   return (
     <div className="mainChessBox">
+      <div className="gameOption">
+        <div className="score">
+          <div className={!turn ? "yourScore" : "yourScore sb"}>
+            <p>{score[0]}</p>
+            <p>you</p>
+          </div>
+          <div className={turn ? "myScore" : "myScore sb"}>
+            <p>{score[1]}</p>
+            <p>Me</p>
+          </div>
+        </div>
+        {/* <div className="difficulty">
+          <div
+            onClick={() => setDifficulty(0)}
+            className={difficulty === 0 ? "easy ele active" : "easy ele"}
+          >
+            <p>easy</p>
+          </div>
+          <div
+            onClick={() => setDifficulty(1)}
+            className={difficulty === 1 ? "medium ele active" : "medium ele"}
+          >
+            <p>medium</p>
+          </div>
+          <div
+            onClick={() => setDifficulty(2)}
+            className={difficulty === 2 ? "hard ele active" : "hard ele"}
+          >
+            <p>hard</p>
+          </div>
+        </div> */}
+        <div className="reset" onClick={reset}>
+          <i className="bx bx-reset"></i>
+          <p>reset</p>
+        </div>
+      </div>
       <div className="chessGameBox">
         {board.map((row, rIndex) => (
           <div className="chessRow" key={rIndex}>
@@ -73,19 +153,41 @@ const Chess = () => {
                 className={
                   pick &&
                   moveAble[1] &&
-                  `${moveAble[1][0]},${moveAble[1][1]}` === `${rIndex},${cIndex}`
+                  `${moveAble[1][0]},${moveAble[1][1]}` ===
+                    `${rIndex},${cIndex}`
                     ? "chessCol piece-active"
                     : "chessCol"
                 }
                 key={cIndex}
                 onClick={() => select(rIndex, cIndex)}
               >
-                <div className="piece">{render(rIndex, cIndex)}</div>
+                <div
+                  className={
+                    check[0] && check[1] === `${rIndex},${cIndex}`
+                      ? "piece chess-check"
+                      : "piece"
+                  }
+                >
+                  {render(rIndex, cIndex)}
+                  {canMoveTo && canMoveTo.has(`${rIndex},${cIndex}`) && (
+                    <div className="piece-canMove"></div>
+                  )}
+                </div>
               </div>
             ))}
           </div>
         ))}
       </div>
+      {isOver && (
+        <div className="aftergame">
+          <h3>{turn ? "i won!!" : "you won!!"}</h3>
+          <h4>total Score: {score[!turn ? 0 : 1]}</h4>
+          <div className="reset w" onClick={reset}>
+            <i className="bx bx-reset w"></i>
+            reset
+          </div>
+        </div>
+      )}
     </div>
   );
 };
