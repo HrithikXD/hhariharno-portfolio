@@ -20,49 +20,48 @@ const Me = () => {
     }
   }, [counter]);
 
-  const rain = () =>{
-    let cloud = document.querySelector('.cloud')
-    let e = document.createElement('div')
-    let left = Math.floor(Math.random()*400)
-    e.classList.add('drop')
-    cloud.appendChild(e)
-    e.style.left = left + 'px';
-    setTimeout(()=>{
-      cloud.removeChild(e)
-    },2000)
-  }
+  const rain = () => {
+    let cloud = document.querySelector(".cloud");
+    let e = document.createElement("div");
+    let left = Math.floor(Math.random() * 400);
 
-  // setInterval(()=>{
-  //   rain()
-  // },50)
+    e.classList.add("drop");
+    cloud.appendChild(e);
+    e.style.left = left + "px";
+
+    setTimeout(() => {
+      cloud.removeChild(e);
+    }, 2000);
+  };
+
+  // Commented out rain interval
+  // setInterval(() => {
+  //   rain();
+  // }, 50);
+
+  const renderConversation = () => {
+    return about["Conversation"].slice(0, counter + 1).map((msg, index) => (
+      <div key={index} className={msg.side === "left" ? "co-left" : "co-right"}>
+        <p>{msg.text}</p>
+      </div>
+    ));
+  };
 
   return (
     <>
       <section className="me">
-        <div className="me-left" >
+        <div className="me-left">
           <div className="conversation" ref={conversationRef}>
-            {about["Conversation"].slice(0, counter + 1).map((msg, index) => (
-              <div
-                key={index}
-                className={msg.side === "left" ? "co-left" : "co-right"}
-              >
-                <p>{msg.text}</p>
-              </div>
-            ))}
+            {renderConversation()}
           </div>
         </div>
+
         <div className="me-right">
-          <div className="sky">
-            
-            {/* <div className="cloud"></div> */}
-          </div>
+          <div className="sky"></div>
           <div className="water"></div>
           <div className="land"></div>
         </div>
       </section>
-      {/* <div style={{height:'100vh'}}>
-        love
-      </div> */}
     </>
   );
 };

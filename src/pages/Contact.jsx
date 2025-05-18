@@ -3,10 +3,10 @@ import React from "react";
 const Contact = () => {
   return (
     <>
-      <div className="head">
-        <h3>wanna connect ?</h3>
-        <p>I can share my linkdin profile or github</p>
-        here's both
+      <section className="contact">
+        <div className="head">
+          <h3>connect</h3>
+        </div>
         <div className="social">
           <a
             className="item"
@@ -14,7 +14,7 @@ const Contact = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <i className='bx bxl-linkedin-square' ></i>
+            <i className="bx bxl-linkedin-square"></i>
             <p>Linkdin</p>
           </a>
           <a
@@ -23,11 +23,11 @@ const Contact = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <i className='bx bxl-github'></i>
+            <i className="bx bxl-github"></i>
             <p>Github</p>
           </a>
         </div>
-      </div>
+      </section>
     </>
   );
 };
