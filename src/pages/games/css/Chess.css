@@ -8,6 +8,11 @@
   transition: all 0.3s ease;
   /* background-color: rebeccapurple; */
 }
+@media (max-width: 768px) {
+  .mainChessBox {
+    justify-content: flex-start;
+  }
+}
 .chessGameBox {
   display: flex;
   flex-direction: column;
@@ -60,7 +65,7 @@
   transition: all 0.3s ease;
 }
 
-.chessCol:hover{
+.chessCol:hover {
   background-color: var(--shadow-hover);
 }
 
@@ -80,5 +85,27 @@
   border-radius: 50%;
   background-color: var(--third-font-color);
   pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.promote{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+@media (max-width: 768px) {
+  .promote {
+    flex-direction: column;
+  }
+}
+.promote p{
+  cursor: pointer;
+  color: var(--primary-font-color);
+  background-color:var(--secondary-background);
+  font-size: clamp(2rem, 3vw, 3rem);
+}
+.promote p:hover{
+  transform: translateY(-2px);
   transition: all 0.3s ease;
 }

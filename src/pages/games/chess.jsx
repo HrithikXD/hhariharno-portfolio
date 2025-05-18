@@ -28,6 +28,7 @@ const Chess = () => {
   const [isOver, setIsOver] = useState(false);
   const [cpuFrom, setCpuFrom] = useState(null);
   const [cpuTo, setCpuTo] = useState(null);
+  const [up, setUp] = useState([false,null]);
 
   useEffect(() => {
     if (pick) {
@@ -61,8 +62,8 @@ const Chess = () => {
   useEffect(() => {}, [score, isOver]);
 
   useEffect(() => {
-    if (!turn && !isOver) {
-      const cpuMoves = genLeagalMoves(positions);
+    if (!turn && !isOver &&!up[0]) {
+      const cpuMoves = genLeagalMoves(positions, difficulty);
       if (cpuMoves && cpuMoves.from && cpuMoves.to) {
         const [r1, c1] = cpuMoves.from.split(",").map(Number);
         const [r2, c2] = cpuMoves.to.split(",").map(Number);
@@ -70,13 +71,15 @@ const Chess = () => {
         setCpuTo([r2, c2]);
       }
     }
-  }, [turn]);
+  }, [turn, isOver, difficulty, up]);
 
   useEffect(() => {
     if (!turn && cpuFrom) {
       select(cpuFrom[0], cpuFrom[1]);
     }
   }, [cpuFrom]);
+
+  useEffect(() => {}, [up]);
 
   const isPiece = (r, c) => {
     const index = `${r},${c}`;
@@ -109,6 +112,9 @@ const Chess = () => {
       }
       setCheck([false, ""]);
       positions[moveAble[0][1]].set(cur, moveAble[0][0]);
+      if ((r == 0 || r == 7) && moveAble[0][0][0] === "pawn") {
+        setUp([true, cur, turn])
+      }
       setPick(false);
       setCanMoveTo(null);
       setMoveAble("");
@@ -135,6 +141,11 @@ const Chess = () => {
     setIsOver(false);
   };
 
+  const levelUp = (piece, val) => {
+    positions[up[2]].set(up[1],[piece, val])
+    setUp([false,null]);
+  };
+
   return (
     <div className="mainChessBox">
       <div className="gameOption">
@@ -148,7 +159,7 @@ const Chess = () => {
             <p>Me</p>
           </div>
         </div>
-        {/* <div className="difficulty">
+        <div className="difficulty">
           <div
             onClick={() => setDifficulty(0)}
             className={difficulty === 0 ? "easy ele active" : "easy ele"}
@@ -161,13 +172,13 @@ const Chess = () => {
           >
             <p>medium</p>
           </div>
-          <div
+          {/* <div
             onClick={() => setDifficulty(2)}
             className={difficulty === 2 ? "hard ele active" : "hard ele"}
           >
             <p>hard</p>
-          </div>
-        </div> */}
+          </div> */}
+        </div>
         <div className="reset" onClick={reset}>
           <i className="bx bx-reset"></i>
           <p>reset</p>
@@ -187,7 +198,9 @@ const Chess = () => {
                     : "chessCol "
                 }${(rIndex + cIndex) % 2 !== 0 ? "chessCol-bg" : ""}`}
                 key={cIndex}
-                onClick={() => select(rIndex, cIndex)}
+                onClick={() => {
+                  turn ? select(rIndex, cIndex) : "";
+                }}
               >
                 <div
                   className={
@@ -213,6 +226,17 @@ const Chess = () => {
           <div className="reset w" onClick={reset}>
             <i className="bx bx-reset w"></i>
             reset
+          </div>
+        </div>
+      )}
+      {up[0] && (
+        <div className="aftergame">
+          <h3>promote your pawn</h3>
+          <div className="promote">
+            <p onClick={()=>levelUp('queen', 9)}>{pieces.queen[!turn ? 0 : 1]}</p>
+            <p onClick={()=>levelUp('rook', 5)}>{pieces.rook[!turn ? 0 : 1]}</p>
+            <p onClick={()=>levelUp('bishop', 3)}>{pieces.bishop[!turn ? 0 : 1]}</p>
+            <p onClick={()=>levelUp('knight', 3)}>{pieces.knight[!turn ? 0 : 1]}</p>
           </div>
         </div>
       )}

@@ -10,40 +10,40 @@ export const initialChessBoard = [
 ];
 export const initialPositions = {
   true: new Map([
-    ["6,0", ["pawn", true]],
-    ["6,1", ["pawn", true]],
-    ["6,2", ["pawn", true]],
-    ["6,3", ["pawn", true]],
-    ["6,4", ["pawn", true]],
-    ["6,5", ["pawn", true]],
-    ["6,6", ["pawn", true]],
-    ["6,7", ["pawn", true]],
-    ["7,4", ["king", true]],
-    ["7,0", ["rook", true]],
-    ["7,7", ["rook", true]],
-    ["7,2", ["bishop", true]],
-    ["7,5", ["bishop", true]],
-    ["7,1", ["knight", true]],
-    ["7,6", ["knight", true]],
-    ["7,3", ["queen", true]],
+    ["6,0", ["pawn", 1]],
+    ["6,1", ["pawn", 1]],
+    ["6,2", ["pawn", 1]],
+    ["6,3", ["pawn", 1]],
+    ["6,4", ["pawn", 1]],
+    ["6,5", ["pawn", 1]],
+    ["6,6", ["pawn", 1]],
+    ["6,7", ["pawn", 1]],
+    ["7,4", ["king", 1000]],
+    ["7,0", ["rook", 5]],
+    ["7,7", ["rook", 5]],
+    ["7,2", ["bishop", 3]],
+    ["7,5", ["bishop", 3]],
+    ["7,1", ["knight", 3]],
+    ["7,6", ["knight", 3]],
+    ["7,3", ["queen", 9]],
   ]),
   false: new Map([
-    ["1,0", ["pawn", true]],
-    ["1,1", ["pawn", true]],
-    ["1,2", ["pawn", true]],
-    ["1,3", ["pawn", true]],
-    ["1,4", ["pawn", true]],
-    ["1,5", ["pawn", true]],
-    ["1,6", ["pawn", true]],
-    ["1,7", ["pawn", true]],
-    ["0,4", ["king", true]],
-    ["0,0", ["rook", true]],
-    ["0,7", ["rook", true]],
-    ["0,2", ["bishop", true]],
-    ["0,5", ["bishop", true]],
-    ["0,1", ["knight", true]],
-    ["0,6", ["knight", true]],
-    ["0,3", ["queen", true]],
+    ["1,0", ["pawn", 1]],
+    ["1,1", ["pawn", 1]],
+    ["1,2", ["pawn", 1]],
+    ["1,3", ["pawn", 1]],
+    ["1,4", ["pawn", 1]],
+    ["1,5", ["pawn", 1]],
+    ["1,6", ["pawn", 1]],
+    ["1,7", ["pawn", 1]],
+    ["0,4", ["king", 1000]],
+    ["0,0", ["rook", 5]],
+    ["0,7", ["rook", 5]],
+    ["0,2", ["bishop", 3]],
+    ["0,5", ["bishop", 3]],
+    ["0,1", ["knight", 3]],
+    ["0,6", ["knight", 3]],
+    ["0,3", ["queen", 9]],
   ]),
 };
 
@@ -408,12 +408,178 @@ export const onClick = (moveTo, positions) => {
   return move;
 };
 
-export const genLeagalMoves = (positions) => {
+const easyMoves = (move) => {
+  const fromPositions = [...move.keys()];
+  const randomFrom =
+    fromPositions[Math.floor(Math.random() * fromPositions.length)];
+
+  const destinations = [...move.get(randomFrom).keys()];
+  const randomTo =
+    destinations[Math.floor(Math.random() * destinations.length)];
+
+  return { from: randomFrom, to: randomTo };
+};
+
+const mediumMoves = (positions, allMoves) => {
+  let bestMove = null;
+  let bestScore = -Infinity;
+  
+  // Position evaluation bonuses
+  const centerSquares = new Set(["3,3", "3,4", "4,3", "4,4"]);
+  const nearCenterSquares = new Set([
+    "2,2", "2,3", "2,4", "2,5", 
+    "3,2", "3,5", "4,2", "4,5", 
+    "5,2", "5,3", "5,4", "5,5"
+  ]);
+  
+  // Calculate current move count (approximation)
+  const moveCount = 32 - (positions.true.size + positions.false.size);
+  
+  // Generate opponent (player's) possible moves to analyze threats
+  const playerMoves = genMoves(positions, "true");
+  
+  // Create a set of threatened positions (squares the human player can attack)
+  const threatenedSquares = new Set();
+  for (const [fromStr, toMap] of playerMoves) {
+    for (const toStr of toMap.keys()) {
+      threatenedSquares.add(toStr);
+    }
+  }
+  
+  // Evaluate each possible CPU move
+  for (const [fromStr, toMap] of allMoves) {
+    const [attackerType, attackerValue] = positions.false.get(fromStr);
+    
+    for (const toStr of toMap.keys()) {
+      let score = 0;
+      const [fromRow, fromCol] = fromStr.split(",").map(Number);
+      const [toRow, toCol] = toStr.split(",").map(Number);
+      
+      // 1. Material evaluation - Captures
+      if (positions.true.has(toStr)) {
+        const [defenderType, defenderValue] = positions.true.get(toStr);
+        
+        // Value of capturing opponent's pieces
+        score += defenderValue * 10;
+        
+        // Trade evaluation
+        const materialGain = defenderValue - attackerValue;
+        score += materialGain * 5;
+      }
+      
+      // 2. Piece safety - check if the move saves a threatened piece
+      if (threatenedSquares.has(fromStr)) {
+        score += attackerValue * 4; // Bonus for moving away from danger
+      }
+      
+      // 3. Move safety - avoid moving to threatened squares
+      if (threatenedSquares.has(toStr)) {
+        // Check if the target square is defended by one of our pieces
+        let isDefended = false;
+        for (const [cpuFromStr, cpuToMap] of allMoves) {
+          if (cpuFromStr !== fromStr && cpuToMap.has(toStr)) {
+            isDefended = true;
+            break;
+          }
+        }
+        
+        if (!isDefended) {
+          // Penalize moving to a threatened square without defense
+          score -= attackerValue * 8;
+        } else {
+          // Still somewhat penalize even if the square is defended
+          score -= attackerValue * 2;
+        }
+      }
+      
+      // 4. Positional evaluation
+      // Bonus for controlling the center
+      if (centerSquares.has(toStr)) {
+        score += 3;
+      } else if (nearCenterSquares.has(toStr)) {
+        score += 1;
+      }
+      
+      // 5. Development bonuses
+      // Pawn advancement
+      if (attackerType === "pawn") {
+        // Bonus for advancing pawns
+        score += (toRow - fromRow) * 0.5;
+        
+        // Extra bonus for pawns nearing promotion
+        if (toRow >= 5) {
+          score += (toRow - 4) * 2;
+        }
+        
+        // Bonus for initial double pawn move
+        if (fromRow === 1 && toRow === 3) {
+          score += 1;
+        }
+      }
+      
+      // Develop minor pieces early
+      if ((attackerType === "knight" || attackerType === "bishop") && moveCount < 10) {
+        if (fromRow === 0 && toRow > 0) {
+          score += 2; // Bonus for developing pieces from back rank
+        }
+      }
+      
+      // 6. King safety
+      if (attackerType === "king") {
+        if (moveCount < 15) {
+          score -= 3; // Avoid moving king early
+        }
+        
+        // Count nearby enemy pieces as danger
+        let dangerLevel = 0;
+        for (let r = Math.max(0, toRow - 2); r <= Math.min(7, toRow + 2); r++) {
+          for (let c = Math.max(0, toCol - 2); c <= Math.min(7, toCol + 2); c++) {
+            const nearbyPos = `${r},${c}`;
+            if (positions.true.has(nearbyPos)) {
+              dangerLevel++;
+            }
+          }
+        }
+        score -= dangerLevel * 2;
+      }
+      
+      // 7. Piece coordination (knights & bishops should support each other)
+      if (attackerType === "knight" || attackerType === "bishop") {
+        // Count friendly pieces nearby the destination square
+        let friendlyNearby = 0;
+        for (let r = Math.max(0, toRow - 2); r <= Math.min(7, toRow + 2); r++) {
+          for (let c = Math.max(0, toCol - 2); c <= Math.min(7, toCol + 2); c++) {
+            const nearbyPos = `${r},${c}`;
+            if (positions.false.has(nearbyPos) && nearbyPos !== fromStr) {
+              friendlyNearby++;
+            }
+          }
+        }
+        score += friendlyNearby * 0.5;
+      }
+      
+      // Update best move if we found a better score
+      if (score > bestScore) {
+        bestScore = score;
+        bestMove = { from: fromStr, to: toStr };
+      }
+    }
+  }
+  
+  // If no good moves found, just return a random move
+  if (bestMove === null && allMoves.size > 0) {
+    return easyMoves(allMoves)
+  }
+  
+  return bestMove;
+};
+
+const genMoves = (positions, player) => {
   let move = new Map();
-  for (const key of positions.false) {
+  for (const key of positions[player]) {
     const [row, col] = key[0].split(",").map(Number);
     const moveTo = [
-      [key[1], false],
+      [key[1], player],
       [row, col],
     ];
     const result = onClick(moveTo, positions);
@@ -424,13 +590,17 @@ export const genLeagalMoves = (positions) => {
       move.get(key[0]).set(k, v);
     }
   }
-  const fromPositions = [...move.keys()];
-  const randomFrom =
-    fromPositions[Math.floor(Math.random() * fromPositions.length)];
+  return move;
+};
 
-  const destinations = [...move.get(randomFrom).keys()];
-  const randomTo =
-    destinations[Math.floor(Math.random() * destinations.length)];
-
-  return { from: randomFrom, to: randomTo };
+export const genLeagalMoves = (positions, difficulty) => {
+  const move = genMoves(positions, false);
+  switch (difficulty) {
+    case 0:
+      return easyMoves(move);
+    case 1:
+      return mediumMoves(positions, move);
+    default:
+      return easyMoves(move);
+  }
 };
