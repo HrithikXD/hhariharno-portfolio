@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import about from "../details/Aboutme";
+import SplineModel from "../components/SplineModel";
 
 const Me = () => {
   const [counter, setCounter] = useState(0);
@@ -57,9 +58,7 @@ const Me = () => {
         </div>
 
         <div className="me-right">
-          <div className="sky"></div>
-          <div className="water"></div>
-          <div className="land"></div>
+          <SplineModel/>
         </div>
       </section>
     </>
