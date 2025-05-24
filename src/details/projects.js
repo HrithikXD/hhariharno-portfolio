@@ -19,7 +19,7 @@ const projects = [
         name:"House Marketplace",
         about:"A real estate web app that allows users to browse, rent, or buy properties. Built with React and backed by Firebase services.",
         features:"",
-        tech:"React.js · firbase · Tailwind CSS",
+        tech:"React.js · firebase · Tailwind CSS",
         tag:"React",
         git:"https://github.com/HrithikXD/house-marketplace-01"
     },
