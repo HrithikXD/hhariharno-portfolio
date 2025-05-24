@@ -28,7 +28,7 @@ const Chess = () => {
   const [isOver, setIsOver] = useState(false);
   const [cpuFrom, setCpuFrom] = useState(null);
   const [cpuTo, setCpuTo] = useState(null);
-  const [up, setUp] = useState([false,null]);
+  const [up, setUp] = useState([false, null]);
 
   useEffect(() => {
     if (pick) {
@@ -62,7 +62,7 @@ const Chess = () => {
   useEffect(() => {}, [score, isOver]);
 
   useEffect(() => {
-    if (!turn && !isOver &&!up[0]) {
+    if (!turn && !isOver && !up[0]) {
       const cpuMoves = genLeagalMoves(positions, difficulty);
       if (cpuMoves && cpuMoves.from && cpuMoves.to) {
         const [r1, c1] = cpuMoves.from.split(",").map(Number);
@@ -113,7 +113,11 @@ const Chess = () => {
       setCheck([false, ""]);
       positions[moveAble[0][1]].set(cur, moveAble[0][0]);
       if ((r == 0 || r == 7) && moveAble[0][0][0] === "pawn") {
-        setUp([true, cur, turn])
+        if (turn === false) {
+          positions[moveAble[0][1]].set(cur, ["queen", 9]);
+        } else {
+          setUp([true, cur, turn]);
+        }
       }
       setPick(false);
       setCanMoveTo(null);
@@ -142,8 +146,8 @@ const Chess = () => {
   };
 
   const levelUp = (piece, val) => {
-    positions[up[2]].set(up[1],[piece, val])
-    setUp([false,null]);
+    positions[up[2]].set(up[1], [piece, val]);
+    setUp([false, null]);
   };
 
   return (
@@ -233,10 +237,18 @@ const Chess = () => {
         <div className="aftergame">
           <h3>promote your pawn</h3>
           <div className="promote">
-            <p onClick={()=>levelUp('queen', 9)}>{pieces.queen[!turn ? 0 : 1]}</p>
-            <p onClick={()=>levelUp('rook', 5)}>{pieces.rook[!turn ? 0 : 1]}</p>
-            <p onClick={()=>levelUp('bishop', 3)}>{pieces.bishop[!turn ? 0 : 1]}</p>
-            <p onClick={()=>levelUp('knight', 3)}>{pieces.knight[!turn ? 0 : 1]}</p>
+            <p onClick={() => levelUp("queen", 9)}>
+              {pieces.queen[!turn ? 0 : 1]}
+            </p>
+            <p onClick={() => levelUp("rook", 5)}>
+              {pieces.rook[!turn ? 0 : 1]}
+            </p>
+            <p onClick={() => levelUp("bishop", 3)}>
+              {pieces.bishop[!turn ? 0 : 1]}
+            </p>
+            <p onClick={() => levelUp("knight", 3)}>
+              {pieces.knight[!turn ? 0 : 1]}
+            </p>
           </div>
         </div>
       )}
