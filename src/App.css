@@ -103,7 +103,7 @@
 }
 
 .sidebar .side-nav .item.active:hover {
-  background: var(--secondary-background);
+  background: var(--con-background);
 }
 
 .sidebar .side-nav .item.active:hover p,
@@ -585,7 +585,9 @@
 
 /* Responsive Design */
 @media (max-width: 1000px) {
-
+  .th-i{
+  font-size: 20px;
+}
   .container {
     margin-left: 0;
   }

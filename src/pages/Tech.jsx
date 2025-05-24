@@ -4,6 +4,7 @@ import techs from "../details/techStack";
 const Tech = () => {
   return (
     <>
+        <p>Possess</p>
       <div className="tech-container">
         {techs.map((tech, index) => (
           <div className="tech-card" key={index}>

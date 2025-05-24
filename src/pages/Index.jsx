@@ -5,15 +5,14 @@ import Themes from "../components/themes";
 const Index = () => {
   const [active, setActive] = useState("me");
   const location = useLocation();
-  useEffect(() => {
-  });
+  useEffect(() => {});
   return (
     <div className="sidebar">
       <div className="sidebarheader">
         <Link to={"/"} className="logo">
           hr
         </Link>
-        <Themes/>
+        <Themes />
       </div>
       <div className="side-nav">
         <Link
@@ -52,7 +51,10 @@ const Index = () => {
           <p>connect-with-me</p>
         </Link>
       </div>
-      <p className="footer">Built Using React+Vite with plain CSS</p>
+      <div className="footer">
+        <p>Built Using React+Vite with plain CSS</p>
+        <p>&copy; {new Date().getFullYear()} HrithikXD</p>
+      </div>
     </div>
   );
 };

@@ -25,25 +25,29 @@ const Other = () => {
   return (
     <>
       {select === "" && (
-        <div className="other-container">
-          {gameDetails.map((game, index) => (
-            <div
-              className="other-card"
-              key={index}
-              onClick={() => setSelect(index)}
-            >
-              <div className="other-title">
-                {game.title}
-                <a target="_blank" rel="noopener noreferrer">
-                  <i className=""></i>
-                </a>
+        <>
+          <p>Have fun</p>
+
+          <div className="other-container">
+            {gameDetails.map((game, index) => (
+              <div
+                className="other-card"
+                key={index}
+                onClick={() => setSelect(index)}
+              >
+                <div className="other-title">
+                  {game.title}
+                  <a target="_blank" rel="noopener noreferrer">
+                    <i className=""></i>
+                  </a>
+                </div>
+                <div className="other-content">
+                  <p>{game.about}</p>
+                </div>
               </div>
-              <div className="other-content">
-                <p>{game.about}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        </>
       )}
 
       {select !== "" && (

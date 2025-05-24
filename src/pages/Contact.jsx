@@ -27,6 +27,7 @@ const Contact = () => {
             <p>Github</p>
           </a>
         </div>
+        <p>&copy; {new Date().getFullYear()} HrithikXD</p>
       </section>
     </>
   );
