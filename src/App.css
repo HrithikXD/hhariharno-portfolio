@@ -586,6 +586,9 @@
   transition: all 0.3s ease;
   transform: translateY(-2px);
 }
+.copy{
+  font-size: 0.7rem;
+}
 
 /* Responsive Design */
 @media (max-width: 1000px) {

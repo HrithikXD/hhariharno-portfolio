@@ -52,8 +52,8 @@ const Index = () => {
         </Link>
       </div>
       <div className="footer">
-        <p>Built Using React+Vite with plain CSS</p>
-        <p>&copy; {new Date().getFullYear()} HrithikXD</p>
+        <p>Built with React+Vite with plain CSS</p>
+        <p className="copy">&copy; {new Date().getFullYear()} HrithikXD</p>
       </div>
     </div>
   );

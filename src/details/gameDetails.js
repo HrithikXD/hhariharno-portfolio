@@ -11,10 +11,6 @@ const gameDetails = [
         title: 'Chess',
         about: 'Plan, trap, and outsmart your opponent to claim checkmate victory!'
     },
-    {
-        title: 'Zip-it',
-        about: 'Roll, race, and build words with letter cubes before time runs out!'
-    }
 ];
 
 export default gameDetails;

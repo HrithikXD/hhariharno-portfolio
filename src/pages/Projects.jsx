@@ -3,7 +3,7 @@ import projects from "../details/projects";
 const Projects = () => {
   return (
     <>
-      <p>Applied</p>
+      <p>applied</p>
       <div className="project-container">
         {projects.map((project, index) => (
           <div className="project-card" key={index}>

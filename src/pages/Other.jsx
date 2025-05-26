@@ -26,7 +26,7 @@ const Other = () => {
     <>
       {select === "" && (
         <>
-          <p>Have fun</p>
+          <p>have fun</p>
 
           <div className="other-container">
             {gameDetails.map((game, index) => (
