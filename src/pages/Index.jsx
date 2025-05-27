@@ -52,7 +52,7 @@ const Index = () => {
         </Link>
       </div>
       <div className="footer">
-        <p>Built with React+Vite with plain CSS</p>
+        <p>Built with React+Vite and plain CSS</p>
         <p className="copy">&copy; {new Date().getFullYear()} HrithikXD</p>
       </div>
     </div>
