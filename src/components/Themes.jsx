@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 const Themes = () => {
   const theme = {
     1: "",
-    2: "dark",
-    3: "ocean-l",
+    2: "bl-wh",
+    3: "dark",
     4: "ocean-d",
     5: "purple-l",
-    6: "purple-d",
+    6: "ocean-l",
   };
 
   const [curT, setCurT] = useState(1);

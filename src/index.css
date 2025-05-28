@@ -1,14 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 :root{
-  --primary-background:#111;
-  --secondary-background:#fafafa;
-  --con-background:white;
-  --primary-font-color:#111;
-  --secondary-font-color:#eee;
-  --third-font-color:#a4abac;
-  --shadow-color: rgba(0, 0, 0, 0.1);
-  --shadow-hover: rgba(0, 0, 0, 0.15);
-  --overlay-bg: rgba(91, 138, 156, 0.2);
+  --primary-background: #1E1E24;
+  --secondary-background: #33333b;
+  --con-background: #2D2D35;
+  --primary-font-color: #F4ECE0;
+  --secondary-font-color: #B995D9;
+  --third-font-color: #8665B0;
+  --shadow-color: rgba(0, 0, 0, 0.25);
+  --shadow-hover: rgba(0, 0, 0, 0.35);
+  --overlay-bg: rgba(185, 149, 217, 0.15);
   --card-hover-shadow: 0 8px 16px var(--shadow-hover);
 }
 [data-theme='dark']{
@@ -59,16 +59,16 @@
   --overlay-bg: rgba(126, 79, 176, 0.12);
   --card-hover-shadow: 0 8px 16px var(--shadow-hover);
 }
-[data-theme='purple-d']{
-   --primary-background: #1E1E24;
-  --secondary-background: #33333b;
-  --con-background: #2D2D35;
-  --primary-font-color: #F4ECE0;
-  --secondary-font-color: #B995D9;
-  --third-font-color: #8665B0;
-  --shadow-color: rgba(0, 0, 0, 0.25);
-  --shadow-hover: rgba(0, 0, 0, 0.35);
-  --overlay-bg: rgba(185, 149, 217, 0.15);
+[data-theme='bl-wh']{
+  --primary-background:#111;
+  --secondary-background:#fafafa;
+  --con-background:white;
+  --primary-font-color:#111;
+  --secondary-font-color:#eee;
+  --third-font-color:#a4abac;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --shadow-hover: rgba(0, 0, 0, 0.15);
+  --overlay-bg: rgba(91, 138, 156, 0.2);
   --card-hover-shadow: 0 8px 16px var(--shadow-hover);
 }
 body{

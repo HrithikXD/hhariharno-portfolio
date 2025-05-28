@@ -10,7 +10,11 @@ const Index = () => {
     <div className="sidebar">
       <div className="sidebarheader">
         <Link to={"/"} className="logo">
-          hr
+          <span>
+            <span className="logo-main">hr</span>
+            <span className="logo-hover">ithik</span>
+          </span>
+          <span className="logo-hover">hariharno</span>
         </Link>
         <Themes />
       </div>
