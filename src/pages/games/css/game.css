@@ -116,20 +116,20 @@
   text-align: center;
   position: absolute;
   background-color: rgba(0, 0, 0, 0.8);
-  color: var(--primary-white);
+  color: var(--text-color);
   width: 50%;
   height: 50%;
   border-radius: 8px;
   z-index: 10;
 }
 .myScore .w{
-  color: var(--primary-white);
+  color: var(--text-color);
 }
 .reset .w {
-  color: var(--primary-white);
+  color: var(--text-color);
 }
 .w {
-  color: var(--primary-white);
+  color: var(--text-color);
 }
 
 @media (max-width: 768px) {
