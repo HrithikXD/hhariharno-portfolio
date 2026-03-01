@@ -111,7 +111,7 @@
 .sidebar .side-nav .item.active p,
 .sidebar .side-nav .item.active i {
   color: var(--primary-font-color);
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 
 .container {
