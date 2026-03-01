@@ -45,7 +45,7 @@ const Index = () => {
           className={`item ${location.pathname == "/other" ? "active" : ""}`}
         >
           <i className="bx bx-game"></i>
-          <p>other-stuffs</p>
+          <p>games</p>
         </Link>
         <Link
           to={"/connect"}
@@ -54,6 +54,13 @@ const Index = () => {
           <i className="bx bx-send"></i>
           <p>connect-with-me</p>
         </Link>
+        {/* <Link
+          to={"/skills"}
+          className={`item ${location.pathname == "/skills" ? "active" : ""}`}
+        >
+          <i className="bx bx-cube-alt"></i>
+          <p>skills</p>
+        </Link> */}
       </div>
       <div className="footer">
         <p>Built with React+Vite and plain CSS</p>

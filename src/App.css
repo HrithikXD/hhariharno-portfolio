@@ -403,7 +403,7 @@
 .project-container {
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
   gap: 25px;
   padding: 20px 0;
   margin-bottom: 20px;
@@ -617,8 +617,73 @@
     color: var(--secondary-font-color);
   }
 }
+
+.skills-set {
+  position: relative;
+  height: 90vh;
+  margin: auto;
+  color: var(--primary-font-color);
+}
+
+/* Shared circle styles */
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 70%;
+  height: 100%;
+  height: 100%;
+}
+
+/* Left circle */
+.be {
+  align-items: flex-start;
+  /* padding-left: 15%; */
+  left: 0;
+  border-right: 3px solid var(--third-font-color);
+}
+
+/* Right circle */
+.fe {
+  align-items: flex-end;
+  border-left: 3px solid var(--third-font-color);
+  right: 0;
+  /* padding-right: 15%; */
+}
+
+.fe-be-in{
+  display: flex;
+  flex-direction: column;
+  min-height:30%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.skill-tech{
+  display: flex;
+  margin: 5px;
+  /* width: 15%; */
+}
+
+/* Intersection content */
+.tools {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  z-index: 3;
+  height: 50%;
+  width: 30%;
+}
+
+
 /* Responsive Design */
-@media (max-width: 1000px) {
+@media (max-width: 1024px) {
   .th-i {
     font-size: 20px;
   }

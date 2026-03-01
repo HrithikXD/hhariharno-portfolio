@@ -7,6 +7,7 @@ import Tech from "./pages/Tech";
 import Projects from "./pages/Projects";
 import Other from "./pages/Other";
 import Contact from "./pages/Contact";
+import Skills from "./pages/Skills";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -21,6 +22,7 @@ function App() {
           <Route path="/projects" element={<Projects />} />
           <Route path="/other" element={<Other />} />
           <Route path="/connect" element={<Contact />} />
+          <Route path="/skills" element={<Skills/>}/>
         </Routes>
       </div>
     </div>
